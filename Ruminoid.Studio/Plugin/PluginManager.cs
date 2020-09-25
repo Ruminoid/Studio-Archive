@@ -5,6 +5,7 @@ using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ookii.Dialogs.Wpf;
 
 namespace Ruminoid.Studio.Plugin
 {
@@ -35,7 +36,19 @@ namespace Ruminoid.Studio.Plugin
             }
             catch (CompositionException compositionException)
             {
-                // Ignore
+                new TaskDialog
+                {
+                    EnableHyperlinks = false,
+                    MainInstruction = "加载插件时发生了错误。",
+                    WindowTitle = "错误",
+                    Content = compositionException.Message,
+                    MainIcon = TaskDialogIcon.Error,
+                    MinimizeBox = false,
+                    Buttons =
+                    {
+                        new TaskDialogButton(ButtonType.Ok)
+                    }
+                }.ShowDialog();
             }
         }
 
