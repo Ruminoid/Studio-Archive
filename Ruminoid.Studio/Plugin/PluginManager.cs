@@ -1,38 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Autofac;
+using Autofac.Core;
 using Ookii.Dialogs.Wpf;
 
 namespace Ruminoid.Studio.Plugin
 {
-    public sealed class PluginManager
+    public static class PluginManager
     {
-        #region Current
+        public static IContainer Compose() => new Composer().Compose();
+    }
 
-        public static PluginManager Current { get; } = new PluginManager();
+    internal class Composer
+    {
+        #region Imports
+
+        // MEF imports will be placed here.
 
         #endregion
 
-        #region Container
-
-        private CompositionContainer _container;
-
-        #endregion
-
-        #region Constructor
-
-        private PluginManager()
+        public IContainer Compose()
         {
+            // Create MEF CompositionContainer
+
             DirectoryCatalog catalog = new DirectoryCatalog("Extensions", "*.rmx");
-            _container = new CompositionContainer(catalog);
+            CompositionContainer mefContainer = new CompositionContainer(catalog);
 
             try
             {
-                _container.ComposeParts(this);
+                mefContainer.ComposeParts(this);
             }
             catch (CompositionException compositionException)
             {
@@ -49,9 +47,28 @@ namespace Ruminoid.Studio.Plugin
                         new TaskDialogButton(ButtonType.Ok)
                     }
                 }.ShowDialog();
-            }
-        }
 
-        #endregion
+                Environment.Exit(1);
+            }
+
+            // Create Autofac ContainerBuilder
+
+            ContainerBuilder builder = new ContainerBuilder();
+
+            // Add Plugins
+
+            // Add Global Instances
+
+            foreach (Type type in AppDomain.CurrentDomain.GetAssemblies().SelectMany(ass => ass.GetTypes())
+                .Where(type => Attribute.GetCustomAttribute(type, typeof(RuminoidGlobalInstanceAttribute)) != null))
+                builder.RegisterType(type).SingleInstance();
+
+            return builder.Build();
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
+    public sealed class RuminoidGlobalInstanceAttribute : Attribute
+    {
     }
 }
