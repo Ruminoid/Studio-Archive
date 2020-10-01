@@ -4,3 +4,6 @@
 [submodule "YDock"]
 	path = HeavyWork/YDock
 	url = https://github.com/HeavyWork/YDock.git
+[submodule "FluentIconWPF"]
+	path = HeavyWork/FluentIconWPF
+	url = https://github.com/HeavyWork/FluentIconWPF.git
