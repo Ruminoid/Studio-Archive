@@ -33,5 +33,14 @@ namespace Ruminoid.Studio.Project
             get => _rows;
             set => SetProperty(ref _rows, value);
         }
+
+        [JsonProperty("columns")]
+        private ObservableCollection<RumiColumn> _columns;
+
+        public ObservableCollection<RumiColumn> Columns
+        {
+            get => _columns;
+            set => SetProperty(ref _columns, value);
+        }
     }
 }
