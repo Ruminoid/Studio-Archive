@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +9,7 @@ using Newtonsoft.Json;
 namespace Ruminoid.Studio.Project
 {
     [JsonObject(MemberSerialization.OptIn)]
-    public class RumiRow : MvxViewModel
+    public class RumiItem : MvxViewModel
     {
         [JsonProperty("id")]
         private string _id = "";
@@ -21,22 +20,22 @@ namespace Ruminoid.Studio.Project
             set => SetProperty(ref _id, value);
         }
 
-        [JsonProperty("type")]
-        private string _type = "Dialogue";
+        [JsonProperty("row")]
+        private string _row = "";
 
-        public string Type
+        public string Row
         {
-            get => _type;
-            set => SetProperty(ref _type, value);
+            get => _row;
+            set => SetProperty(ref _row, value);
         }
 
-        [JsonProperty("items")]
-        private ObservableCollection<RumiItem> _items;
+        [JsonProperty("text")]
+        private string _text = "";
 
-        public ObservableCollection<RumiItem> Items
+        public string Text
         {
-            get => _items;
-            set => SetProperty(ref _items, value);
+            get => _text;
+            set => SetProperty(ref _text, value);
         }
     }
 }
