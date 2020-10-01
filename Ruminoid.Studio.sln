@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ruminoid.Studio", "Ruminoid.Studio\Ruminoid.Studio.csproj", "{1FAB1EC1-A7FF-40B0-A843-D76377698053}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HeavyWork", "HeavyWork", "{9FD56449-77D3-424A-A134-04184A5399AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
