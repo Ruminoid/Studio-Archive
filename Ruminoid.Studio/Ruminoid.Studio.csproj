@@ -35,6 +35,7 @@
   <ItemGroup>
     <Compile Include="Plugin\PluginManager.cs" />
     <Compile Include="Project\RumiProject.cs" />
+    <Compile Include="Project\RumiStyle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
