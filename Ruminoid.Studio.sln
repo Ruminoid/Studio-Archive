@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroRadiance.Core", "Heavy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetroRadiance", "HeavyWork\MetroRadiance\source\RetroRadiance\RetroRadiance.csproj", "{7F898B3A-DA17-4CAB-B387-5629B5FACA49}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YDock", "HeavyWork\YDock\YDock\YDock.csproj", "{2BD226E4-B931-4B46-A6C3-D15270AD0565}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -60,6 +62,12 @@ Global
 		{7F898B3A-DA17-4CAB-B387-5629B5FACA49}.Release RETRO|x64.Build.0 = Release|x64
 		{7F898B3A-DA17-4CAB-B387-5629B5FACA49}.Release|x64.ActiveCfg = Release|x64
 		{7F898B3A-DA17-4CAB-B387-5629B5FACA49}.Release|x64.Build.0 = Release|x64
+		{2BD226E4-B931-4B46-A6C3-D15270AD0565}.Debug|x64.ActiveCfg = Debug|x64
+		{2BD226E4-B931-4B46-A6C3-D15270AD0565}.Debug|x64.Build.0 = Debug|x64
+		{2BD226E4-B931-4B46-A6C3-D15270AD0565}.Release RETRO|x64.ActiveCfg = Release|x64
+		{2BD226E4-B931-4B46-A6C3-D15270AD0565}.Release RETRO|x64.Build.0 = Release|x64
+		{2BD226E4-B931-4B46-A6C3-D15270AD0565}.Release|x64.ActiveCfg = Release|x64
+		{2BD226E4-B931-4B46-A6C3-D15270AD0565}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,6 +78,7 @@ Global
 		{35F4CDD9-E656-48C1-96F8-77CB63480E08} = {9FD56449-77D3-424A-A134-04184A5399AA}
 		{A6B0A741-5BE0-479D-B813-E65672350057} = {9FD56449-77D3-424A-A134-04184A5399AA}
 		{7F898B3A-DA17-4CAB-B387-5629B5FACA49} = {9FD56449-77D3-424A-A134-04184A5399AA}
+		{2BD226E4-B931-4B46-A6C3-D15270AD0565} = {9FD56449-77D3-424A-A134-04184A5399AA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3CDE7E5E-6615-4DF0-BBAE-DC35E5810CD1}
