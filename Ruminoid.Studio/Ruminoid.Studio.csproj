@@ -34,6 +34,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Plugin\PluginManager.cs" />
+    <Compile Include="Project\RumiProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -47,5 +48,6 @@
       <Version>1.1.0</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
