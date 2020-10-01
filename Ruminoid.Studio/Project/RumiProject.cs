@@ -7,33 +7,13 @@ namespace Ruminoid.Studio.Project
     [JsonObject(MemberSerialization.OptIn)]
     public class RumiProject : MvxViewModel
     {
-        #region Project Settings
+        [JsonProperty]
+        private RumiSettings _settings;
 
-        [JsonProperty("title")]
-        private string _title = "";
-
-        public string Title
+        public RumiSettings Settings
         {
-            get => _title;
-            set => SetProperty(ref _title, value);
-        }
-
-        [JsonProperty("width")]
-        private int _width;
-
-        public int Width
-        {
-            get => _width;
-            set => SetProperty(ref _width, value);
-        }
-
-        [JsonProperty("height")]
-        private int _height;
-
-        public int Height
-        {
-            get => _height;
-            set => SetProperty(ref _height, value);
+            get => _settings;
+            set => SetProperty(ref _settings, value);
         }
 
         [JsonProperty("styles")]
@@ -53,7 +33,5 @@ namespace Ruminoid.Studio.Project
             get => _rows;
             set => SetProperty(ref _rows, value);
         }
-
-        #endregion
     }
 }
