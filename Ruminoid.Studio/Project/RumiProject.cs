@@ -45,6 +45,15 @@ namespace Ruminoid.Studio.Project
             set => SetProperty(ref _styles, value);
         }
 
+        [JsonProperty("rows")]
+        private ObservableCollection<RumiRow> _rows;
+
+        public ObservableCollection<RumiRow> Rows
+        {
+            get => _rows;
+            set => SetProperty(ref _rows, value);
+        }
+
         #endregion
     }
 }
