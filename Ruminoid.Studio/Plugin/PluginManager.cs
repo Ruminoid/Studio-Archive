@@ -2,18 +2,15 @@
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.Linq;
+using System.Reflection;
 using Autofac;
-using Autofac.Core;
+using Autofac.Integration.Mef;
 using Ookii.Dialogs.Wpf;
 
 namespace Ruminoid.Studio.Plugin
 {
-    public static class PluginManager
-    {
-        public static IContainer Compose() => new Composer().Compose();
-    }
-
-    internal class Composer
+    [Export]
+    public class PluginManager
     {
         #region Imports
 
@@ -21,47 +18,22 @@ namespace Ruminoid.Studio.Plugin
 
         #endregion
 
-        public IContainer Compose()
+        public static IContainer Compose()
         {
-            // Create MEF CompositionContainer
-
-            DirectoryCatalog catalog = new DirectoryCatalog("Extensions", "*.rmx");
-            CompositionContainer mefContainer = new CompositionContainer(catalog);
-
-            try
-            {
-                mefContainer.ComposeParts(this);
-            }
-            catch (CompositionException compositionException)
-            {
-                new TaskDialog
-                {
-                    EnableHyperlinks = false,
-                    MainInstruction = "加载插件时发生了错误。",
-                    WindowTitle = "错误",
-                    Content = compositionException.Message,
-                    MainIcon = TaskDialogIcon.Error,
-                    MinimizeBox = false,
-                    Buttons =
-                    {
-                        new TaskDialogButton(ButtonType.Ok)
-                    }
-                }.ShowDialog();
-
-                Environment.Exit(1);
-            }
-
-            // Create Autofac ContainerBuilder
+            // Create Builder
 
             ContainerBuilder builder = new ContainerBuilder();
 
-            // Add Plugins
+            // Add MEF Catalogs
+
+            builder.RegisterComposablePartCatalog(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
+            builder.RegisterComposablePartCatalog(new DirectoryCatalog("Extensions", "*.rmx"));
 
             // Add Global Instances
 
             foreach (Type type in AppDomain.CurrentDomain.GetAssemblies().SelectMany(ass => ass.GetTypes())
                 .Where(type => Attribute.GetCustomAttribute(type, typeof(RuminoidGlobalInstanceAttribute)) != null))
-                builder.RegisterType(type).SingleInstance();
+                builder.RegisterType(type).SingleInstance().Exported(x => x.As(type));
 
             return builder.Build();
         }
