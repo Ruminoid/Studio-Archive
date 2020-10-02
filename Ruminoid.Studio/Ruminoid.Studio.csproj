@@ -33,6 +33,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Plugin\INamed.cs" />
     <Compile Include="Plugin\PluginManager.cs" />
     <Compile Include="Project\RumiColumn.cs" />
     <Compile Include="Project\RumiItem.cs" />
