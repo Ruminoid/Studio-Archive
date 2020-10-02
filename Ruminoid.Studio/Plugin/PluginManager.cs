@@ -35,20 +35,11 @@ namespace Ruminoid.Studio.Plugin
             // Add MEF Catalogs
 
             builder.RegisterComposablePartCatalog(new DirectoryCatalog("Extensions", "*.rmx"));
-            builder.RegisterComposablePartCatalog(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
 
-            // Add Global Instances
-
-            foreach (Type type in AppDomain.CurrentDomain.GetAssemblies().SelectMany(ass => ass.GetTypes())
-                .Where(type => Attribute.GetCustomAttribute(type, typeof(RuminoidGlobalInstanceAttribute)) != null))
-                builder.RegisterType(type).SingleInstance().Exported(x => x.As(type));
+            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+                builder.RegisterComposablePartCatalog(new AssemblyCatalog(assembly));
 
             return builder.Build();
         }
-    }
-
-    [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
-    public sealed class RuminoidGlobalInstanceAttribute : Attribute
-    {
     }
 }
