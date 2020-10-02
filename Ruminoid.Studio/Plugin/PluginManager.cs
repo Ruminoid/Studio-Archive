@@ -39,7 +39,32 @@ namespace Ruminoid.Studio.Plugin
             foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
                 builder.RegisterComposablePartCatalog(new AssemblyCatalog(assembly));
 
-            return builder.Build();
+            try
+            {
+                return builder.Build();
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+
+                new TaskDialog
+                {
+                    EnableHyperlinks = false,
+                    MainInstruction = "加载插件时发生了错误。",
+                    WindowTitle = "错误",
+                    Content = exception.Message,
+                    MainIcon = TaskDialogIcon.Error,
+                    MinimizeBox = false,
+                    Buttons =
+                    {
+                        new TaskDialogButton(ButtonType.Ok)
+                    }
+                }.ShowDialog();
+
+                Environment.Exit(1);
+            }
+
+            return null;
         }
     }
 }
