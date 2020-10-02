@@ -53,6 +53,11 @@
       <Version>1.1.0</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\HeavyWork\Autofac.Mef\src\Autofac.Integration.Mef\Autofac.Integration.Mef.csproj">
+      <Project>{fff2ec83-804a-4c39-a0a5-e0f1d6302d96}</Project>
+      <Name>Autofac.Integration.Mef</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
