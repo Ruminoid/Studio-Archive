@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.Linq;
@@ -14,7 +15,14 @@ namespace Ruminoid.Studio.Plugin
     {
         #region Imports
 
-        // MEF imports will be placed here.
+        [ImportMany]
+        public IEnumerable<ITransform> Transforms;
+
+        [ImportMany]
+        public IEnumerable<ITarget> Targets;
+
+        [ImportMany]
+        public IEnumerable<IInterfacePlugin> InterfacePlugins;
 
         #endregion
 
@@ -26,8 +34,8 @@ namespace Ruminoid.Studio.Plugin
 
             // Add MEF Catalogs
 
-            builder.RegisterComposablePartCatalog(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
             builder.RegisterComposablePartCatalog(new DirectoryCatalog("Extensions", "*.rmx"));
+            builder.RegisterComposablePartCatalog(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
 
             // Add Global Instances
 
