@@ -35,6 +35,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Plugin\IInterfaceDock.cs" />
     <Compile Include="Plugin\IInterfacePlugin.cs" />
     <Compile Include="Plugin\INamed.cs" />
     <Compile Include="Plugin\ITarget.cs" />

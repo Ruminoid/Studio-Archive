@@ -5,13 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using YDock.Interface;
 
 namespace Ruminoid.Studio.Plugin
 {
     public interface IInterfacePlugin : INamed
     {
-        Collection<IDockSource> Panels { get; }
+        Collection<IInterfaceDock> Panels { get; }
 
         Collection<RoutedUICommand> Commands { get; }
     }
