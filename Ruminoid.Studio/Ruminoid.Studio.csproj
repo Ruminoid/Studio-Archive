@@ -63,10 +63,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HeavyWork\Autofac.Mef\src\Autofac.Integration.Mef\Autofac.Integration.Mef.csproj">
-      <Project>{fff2ec83-804a-4c39-a0a5-e0f1d6302d96}</Project>
-      <Name>Autofac.Integration.Mef</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HeavyWork\YDock\YDock\YDock.csproj">
       <Project>{2bd226e4-b931-4b46-a6c3-d15270ad0565}</Project>
       <Name>YDock</Name>
