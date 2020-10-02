@@ -7,3 +7,6 @@
 [submodule "FluentIconWPF"]
 	path = HeavyWork/FluentIconWPF
 	url = https://github.com/HeavyWork/FluentIconWPF.git
+[submodule "Autofac.Mef"]
+	path = HeavyWork/Autofac.Mef
+	url = https://github.com/HeavyWork/Autofac.Mef.git
