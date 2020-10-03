@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using MvvmCross.ViewModels;
 using Newtonsoft.Json;
 
 namespace Ruminoid.Studio.Project
 {
     [JsonObject(MemberSerialization.OptIn)]
-    public class RumiRow : MvxViewModel
+    public class RumiRow : MvxNotifyPropertyChanged
     {
         [JsonProperty("id")]
         private string _id = "";

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MvvmCross.ViewModels;
 using Newtonsoft.Json;
 
 namespace Ruminoid.Studio.Project
 {
     [JsonObject(MemberSerialization.OptIn)]
-    public class RumiStyle
+    public class RumiStyle : MvxNotifyPropertyChanged
     {
     }
 }

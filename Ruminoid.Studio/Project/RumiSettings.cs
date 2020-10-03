@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace Ruminoid.Studio.Project
 {
     [JsonObject(MemberSerialization.OptIn)]
-    public class RumiSettings : MvxViewModel
+    public class RumiSettings : MvxNotifyPropertyChanged
     {
         [JsonProperty("title")]
         private string _title = "";
