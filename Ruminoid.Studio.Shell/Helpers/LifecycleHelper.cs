@@ -24,12 +24,34 @@ namespace Ruminoid.Studio.Shell.Helpers
 
         private static void HandleParseError(IEnumerable<Error> obj)
         {
+            if (obj.Count() == 1 && obj.FirstOrDefault().Tag == ErrorType.MissingRequiredOptionError)
+            {
+                new TaskDialog
+                {
+                    EnableHyperlinks = false,
+                    MainInstruction = "项目文件位置缺失。",
+                    WindowTitle = "错误",
+                    Content = "需要提供项目文件的位置，程序才能启动。\n请尝试在启动参数中加入项目文件的位置。",
+                    MainIcon = TaskDialogIcon.Error,
+                    MinimizeBox = false,
+                    Buttons =
+                    {
+                        new TaskDialogButton(ButtonType.Ok)
+                    }
+                }.ShowDialog();
+
+                Environment.Exit(1);
+            }
+
             StringBuilder stringBuilder = new StringBuilder("错误详细信息：");
+
+            bool first = true;
 
             foreach (Error error in obj)
             {
+                if (first) first = false;
+                else stringBuilder.Append(" | ");
                 stringBuilder.Append(error.Tag);
-                stringBuilder.Append(" | ");
             }
 
             new TaskDialog
@@ -57,6 +79,7 @@ namespace Ruminoid.Studio.Shell.Helpers
 
     public sealed class CommandLineOptions
     {
-
+        [Value(0, Required = true, HelpText = "要打开的项目文件。")]
+        public string ProjectFile { get; set; }
     }
 }
