@@ -41,6 +41,7 @@
     <Compile Include="Plugin\ITarget.cs" />
     <Compile Include="Plugin\ITransform.cs" />
     <Compile Include="Plugin\PluginManager.cs" />
+    <Compile Include="Project\ProjectManager.cs" />
     <Compile Include="Project\RumiColumn.cs" />
     <Compile Include="Project\RumiItem.cs" />
     <Compile Include="Project\RumiProject.cs" />
