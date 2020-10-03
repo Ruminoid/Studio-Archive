@@ -12,6 +12,7 @@ using Ookii.Dialogs.Wpf;
 using Ruminoid.Studio.Plugin;
 using Ruminoid.Studio.Project;
 using Ruminoid.Studio.Shell.Properties;
+using Ruminoid.Studio.Shell.Windows;
 using Ruminoid.Studio.Utils;
 using Serilog.Events;
 
@@ -100,6 +101,11 @@ namespace Ruminoid.Studio.Shell.Helpers
             // Register Theme Service
 
             ThemeService.Current.Register(Application.Current, Theme.Windows, Accent.Windows);
+
+            // Initialize Main Window
+
+            Application.Current.MainWindow = new MainWindow();
+            Application.Current.MainWindow.Show();
 
             // Change Default Theme
 
