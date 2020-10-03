@@ -1,10 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
+using Autofac;
 using CommandLine;
+using MetroRadiance.UI;
 using Ookii.Dialogs.Wpf;
+using Ruminoid.Studio.Plugin;
+using Ruminoid.Studio.Project;
+using Ruminoid.Studio.Shell.Properties;
+using Ruminoid.Studio.Utils;
+using Serilog.Events;
 
 namespace Ruminoid.Studio.Shell.Helpers
 {
@@ -17,9 +26,85 @@ namespace Ruminoid.Studio.Shell.Helpers
                 .WithNotParsed(HandleParseError);
         }
 
-        private static void RunOptions(CommandLineOptions obj)
+        private static void RunOptions(CommandLineOptions options)
         {
-            
+            // Build Container
+
+            IContainer container = PluginManager.Compose();
+
+            // Initialize Context Logger
+
+            LogHelper logHelper = container.Resolve<LogHelper>();
+            ContextLogger logger = logHelper.CreateContextLogger(Application.Current);
+
+            // Test Logging
+
+            string appVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            logger.Log(LogEventLevel.Information, "Ruminoid Studio - 版本{AppVersion}", appVersion);
+
+            // Add Event Handler
+
+            Application.Current.DispatcherUnhandledException += (sender, args) =>
+            {
+                args.Handled = true;
+
+                logger.LogException(LogEventLevel.Error, "发生了一个故障。", args.Exception);
+
+                new TaskDialog
+                {
+                    EnableHyperlinks = false,
+                    MainInstruction = "发生了一个故障。",
+                    WindowTitle = "灾难性故障",
+                    Content = args.Exception.Message,
+                    MainIcon = TaskDialogIcon.Error,
+                    MinimizeBox = false,
+                    Buttons =
+                    {
+                        new TaskDialogButton(ButtonType.Ok)
+                    }
+                }.ShowDialog();
+            };
+
+            AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
+            {
+                if (!(args.ExceptionObject is Exception)) return;
+
+                logger.LogException(LogEventLevel.Fatal, "发生了一个故障。", (Exception)args.ExceptionObject);
+
+                new TaskDialog
+                {
+                    EnableHyperlinks = false,
+                    MainInstruction = "发生了一个故障。",
+                    WindowTitle = "灾难性故障",
+                    Content = ((Exception)args.ExceptionObject).Message ?? "Exception",
+                    MainIcon = TaskDialogIcon.Error,
+                    MinimizeBox = false,
+                    Buttons =
+                    {
+                        new TaskDialogButton(ButtonType.Ok)
+                    }
+                }.ShowDialog();
+            };
+
+            // Load Project
+
+            logger.Log(LogEventLevel.Warning, "Lifecycle Helper: 开始加载项目。");
+
+            ProjectManager projectManager = container.Resolve<ProjectManager>();
+            projectManager.Load(options.ProjectFile);
+
+            // Change Default Culture
+
+            Resources.Culture = CultureInfo.CurrentUICulture;
+
+            // Register Theme Service
+
+            ThemeService.Current.Register(Application.Current, Theme.Windows, Accent.Windows);
+
+            // Change Default Theme
+
+            Application.Current.Dispatcher?.Invoke(() => ThemeService.Current.ChangeTheme(Theme.Dark));
+            Application.Current.Dispatcher?.Invoke(() => ThemeService.Current.ChangeAccent(Accent.Blue));
         }
 
         private static void HandleParseError(IEnumerable<Error> obj)
