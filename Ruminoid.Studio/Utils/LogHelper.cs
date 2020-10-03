@@ -56,5 +56,13 @@ namespace Ruminoid.Studio.Utils
 
             _logger.Write(level, "{Caller} " + messageTemplate, newPropertyValues);
         }
+
+        public void LogException(
+            LogEventLevel level,
+            string messageTemplate,
+            Exception exception)
+        {
+            _logger.Write(level, exception, messageTemplate);
+        }
     }
 }
