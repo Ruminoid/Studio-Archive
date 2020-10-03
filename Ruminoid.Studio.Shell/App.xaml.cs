@@ -15,5 +15,7 @@ namespace Ruminoid.Studio.Shell
     public partial class App : Application
     {
         private void OnStartup(object sender, StartupEventArgs e) => LifecycleHelper.StartUp(e.Args);
+
+        private void OnExit(object sender, ExitEventArgs e) => LifecycleHelper.CleanUp();
     }
 }
