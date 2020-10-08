@@ -52,6 +52,7 @@
     <Compile Include="Storage\StorageHelper.cs" />
     <Compile Include="Transaction\ActionManager.cs" />
     <Compile Include="Transaction\IAction.cs" />
+    <Compile Include="Transaction\Transaction.cs" />
     <Compile Include="Utils\LogHelper.cs" />
     <Compile Include="Utils\ReflectionHelper.cs" />
   </ItemGroup>
