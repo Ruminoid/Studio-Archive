@@ -9,6 +9,14 @@ namespace Ruminoid.Studio.Transaction
 {
     public class Transaction : MvxNotifyPropertyChanged, IAction
     {
+        #region Display
+
+        public string Name { get; set; } = "（未知操作）";
+
+        public string Icon { get; set; } = "DocumentUnknown";
+
+        #endregion
+
         #region IAction
 
         public void Execute()
