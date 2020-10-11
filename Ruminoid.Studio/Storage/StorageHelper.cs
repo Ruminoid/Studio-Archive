@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ruminoid.Studio.Storage
 {
@@ -31,6 +29,40 @@ namespace Ruminoid.Studio.Storage
             }
             folder = Path.Combine(AppFolder, section);
             return Directory.Exists(folder) ? folder : string.Empty;
+        }
+
+        public static List<KeyValuePair<string, string>> GetAllFiles(string section)
+        {
+            List<KeyValuePair<string, string>> result = new List<KeyValuePair<string, string>>();
+
+            string folder;
+
+            folder = Path.Combine(RoamingFolder, section);
+            if (Directory.Exists(folder))
+            {
+                string[] files = Directory.GetFiles(folder);
+                foreach (string file in files)
+                {
+                    FileInfo fileInfo = new FileInfo(file);
+                    string name = Path.GetFileNameWithoutExtension(fileInfo.Name);
+                    result.Add(new KeyValuePair<string, string>(name, file));
+                }
+            }
+
+            folder = Path.Combine(AppFolder, section);
+            if (Directory.Exists(folder))
+            {
+                string[] files = Directory.GetFiles(folder);
+                foreach (string file in files)
+                {
+                    FileInfo fileInfo = new FileInfo(file);
+                    string name = Path.GetFileNameWithoutExtension(fileInfo.Name);
+                    if (result.All(x => x.Key != name))
+                        result.Add(new KeyValuePair<string, string>(name, file));
+                }
+            }
+
+            return result;
         }
 
         public static string GetFileToRead(string section, string name)
