@@ -1,3 +1,5 @@
+> NOTE: This is the old Ruminoid Studio repo based on .NET Framework. Please check out the new [Ruminoid Studio](https://github.com/Ruminoid/Studio).
+
 # Ruminoid Studio
 
 The next generation of Ruminoid. Visual working utilities.
